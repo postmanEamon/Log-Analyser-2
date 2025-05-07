@@ -2,35 +2,85 @@
 
 import React, { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Filter, List, Hash } from 'lucide-react';
-import { findPatterns } from '../utils/patternMatcher';
-import { PatternView } from './logs/PatternView';
 import { LogEntry as LogEntryType, LogFile, parseLogLine, calculateLogStats } from '../utils/logParser';
 import { LogEntry } from './logs/LogEntry';
 import { LogFilters } from './logs/LogFilters';
 import { LogStats } from './logs/LogStats';
 import { FileSelector } from './logs/FileSelector';
+import { PatternView } from './logs/PatternView';
+import { findPatterns } from '../utils/patternMatcher';
+import { Plus, X } from 'lucide-react';
+
+interface Tab {
+  id: string;
+  name: string;
+  files: LogFile[];
+  selectedFileId: string | null;
+  filter: string;
+  searchTerm: string;
+  sortDirection: 'asc' | 'desc';
+  viewMode: 'logs' | 'patterns';
+}
 
 const LogAnalyzer = () => {
-  const [files, setFiles] = useState<LogFile[]>([]);
-  const [selectedFileId, setSelectedFileId] = useState<string | null>(null);
-  const [filter, setFilter] = useState('all');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
-  const [viewMode, setViewMode] = useState<'logs' | 'patterns'>('logs');
+  const [tabs, setTabs] = useState<Tab[]>([]); // List of tabs
+  const [activeTabId, setActiveTabId] = useState<string | null>(null); // ID of the currently active tab
+  const [editingTabId, setEditingTabId] = useState<string | null>(null); // ID of the tab being renamed
+  const [tempTabName, setTempTabName] = useState<string>(''); // Temporary name for the tab being edited
 
+  // Add a new tab
+  const addTab = () => {
+    const newTab: Tab = {
+      id: crypto.randomUUID(),
+      name: `Tab ${tabs.length + 1}`,
+      files: [],
+      selectedFileId: null,
+      filter: 'all',
+      searchTerm: '',
+      sortDirection: 'desc',
+      viewMode: 'logs',
+    };
+    setTabs((prev) => [...prev, newTab]);
+    setActiveTabId(newTab.id); // Set the new tab as active
+  };
+
+  // Remove a tab
+  const removeTab = (id: string) => {
+    setTabs((prev) => prev.filter((tab) => tab.id !== id));
+    if (activeTabId === id) {
+      setActiveTabId(tabs.length > 1 ? tabs[0].id : null); // Switch to the first tab or null if no tabs remain
+    }
+  };
+
+  // Start renaming a tab
+  const startRenamingTab = (id: string, currentName: string) => {
+    setEditingTabId(id);
+    setTempTabName(currentName); // Set the current name as the temporary name
+  };
+
+  // Save the renamed tab
+  const saveRenamedTab = () => {
+    if (editingTabId) {
+      setTabs((prev) =>
+        prev.map((tab) => (tab.id === editingTabId ? { ...tab, name: tempTabName } : tab))
+      );
+      setEditingTabId(null); // Exit editing mode
+      setTempTabName(''); // Clear the temporary name
+    }
+  };
+
+  // Handle file uploads for the active tab
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!activeTabId) return; // Exit if no active tab
     const fileList = event.target.files;
     if (!fileList) return;
 
     try {
       const newFiles: LogFile[] = [];
-
       for (let i = 0; i < fileList.length; i++) {
         const file = fileList[i];
         const text = await file.text();
         const lines = text.split('\n');
-        
         const parsedLogs = lines
           .map((line, index) => {
             const log = parseLogLine(line);
@@ -40,115 +90,225 @@ const LogAnalyzer = () => {
             return log;
           })
           .filter((log): log is LogEntryType => log !== null);
-        
+
         newFiles.push({
           id: crypto.randomUUID(),
           name: file.name,
-          logs: parsedLogs
+          logs: parsedLogs,
         });
       }
 
-      setFiles(prev => [...prev, ...newFiles]);
-      if (!selectedFileId && newFiles.length > 0) {
-        setSelectedFileId(newFiles[0].id);
-      }
+      setTabs((prev) =>
+        prev.map((tab) =>
+          tab.id === activeTabId
+            ? {
+                ...tab,
+                files: [...tab.files, ...newFiles],
+                selectedFileId: tab.selectedFileId || newFiles[0]?.id || null,
+              }
+            : tab
+        )
+      );
     } catch (error) {
       console.error('Error processing files:', error);
     }
   };
 
-  const selectedFile = files.find(f => f.id === selectedFileId);
+  // Get the active tab
+  const activeTab = tabs.find((tab) => tab.id === activeTabId);
+
+  // Get the selected file and logs for the active tab
+  const selectedFile = activeTab?.files.find((file) => file.id === activeTab?.selectedFileId);
   const currentLogs = selectedFile?.logs || [];
 
+  // Filter and sort the logs based on the active tab's state
   const filteredAndSortedLogs = currentLogs
-    .filter(log => {
-      const levelMatch = filter === 'all' || log.level === filter;
-      const searchMatch = !searchTerm || 
-        log.message.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        log.context.toLowerCase().includes(searchTerm.toLowerCase());
+    .filter((log) => {
+      const levelMatch = activeTab?.filter === 'all' || log.level === activeTab?.filter;
+      const searchMatch =
+        !activeTab?.searchTerm ||
+        log.message.toLowerCase().includes(activeTab.searchTerm.toLowerCase()) ||
+        log.context.toLowerCase().includes(activeTab.searchTerm.toLowerCase());
       return levelMatch && searchMatch;
     })
     .sort((a, b) => {
-      const sortMultiplier = sortDirection === 'asc' ? 1 : -1;
+      const sortMultiplier = activeTab?.sortDirection === 'asc' ? 1 : -1;
       return (a.timestamp - b.timestamp) * sortMultiplier;
     });
 
+  // Calculate statistics for the logs
   const stats = calculateLogStats(currentLogs, filteredAndSortedLogs);
 
   return (
-    <div className="p-4 max-w-6xl mx-auto">
-      <Card className="mb-6">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Filter className="w-6 h-6" />
-            Log Analyzer
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          {/* File Upload */}
-          <div className="mb-4">
-            <input
-              type="file"
-              onChange={handleFileUpload}
-              multiple
-              className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-            />
-          </div>
+    <div className="max-w-6xl mx-auto">
+      <div className="max-w-6xl mx-auto">
+        <Card className="mb-6">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <span>Log Analyzer</span>
+              <button
+                onClick={addTab}
+                className="ml-auto px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+              >
+                <Plus className="w-4 h-4" />
+              </button>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {/* Tab Navigation */}
+            <div className="flex items-center gap-2 border-b pb-2">
+              {tabs.map((tab) => (
+                <div
+                  key={tab.id}
+                  className={`px-4 py-2 rounded-t cursor-pointer ${
+                    activeTabId === tab.id ? 'bg-blue-500 text-white' : 'bg-gray-100'
+                  }`}
+                  onClick={() => setActiveTabId(tab.id)}
+                >
+                  <div className="flex items-center gap-2">
+                    {editingTabId === tab.id ? (
+                      <input
+                        type="text"
+                        value={tempTabName}
+                        onChange={(e) => setTempTabName(e.target.value)}
+                        onBlur={saveRenamedTab}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') saveRenamedTab();
+                        }}
+                        className="px-2 py-1 rounded border border-gray-300 text-black"
+                        autoFocus
+                      />
+                    ) : (
+                      <div className="flex items-center gap-1">
+                        <span>{tab.name}</span>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            startRenamingTab(tab.id, tab.name);
+                          }}
+                          className="text-gray-400 hover:text-gray-600"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-4 w-4"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M15.232 5.232l3.536 3.536M9 11l3.536-3.536m0 0L15.232 5.232m-3.536 3.536L5.232 15.232m0 0L3 21l5.768-2.232m0 0L15.232 9.768"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                    )}
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        removeTab(tab.id);
+                      }}
+                      className="text-red-500 hover:text-red-700"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
 
-          {files.length > 0 && (
-            <>
-              <FileSelector
-                files={files}
-                selectedFileId={selectedFileId}
-                onFileSelect={setSelectedFileId}
-              />
+            {/* Tab Content */}
+            {activeTab ? (
+              <div>
+                {/* File Upload */}
+                <div className="mb-4 flex justify-between items-center">
+                  <input
+                    type="file"
+                    onChange={handleFileUpload}
+                    multiple
+                    className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                  />
+                </div>
 
-              <LogFilters
-                filter={filter}
-                setFilter={setFilter}
-                searchTerm={searchTerm}
-                setSearchTerm={setSearchTerm}
-                sortDirection={sortDirection}
-                setSortDirection={setSortDirection}
-              />
-              
-              <div className="mb-4 flex justify-between items-center">
+                {/* File Selector */}
+                {activeTab.files.length > 0 && (
+                  <FileSelector
+                    files={activeTab.files}
+                    selectedFileId={activeTab.selectedFileId}
+                    onFileSelect={(id) =>
+                      setTabs((prev) =>
+                        prev.map((tab) =>
+                          tab.id === activeTabId ? { ...tab, selectedFileId: id } : tab
+                        )
+                      )
+                    }
+                    removeFile={(fileId) =>
+                      setTabs((prev) =>
+                        prev.map((tab) =>
+                          tab.id === activeTabId
+                            ? {
+                                ...tab,
+                                files: tab.files.filter((file) => file.id !== fileId),
+                                selectedFileId:
+                                  tab.selectedFileId === fileId ? null : tab.selectedFileId,
+                              }
+                            : tab
+                        )
+                      )
+                    }
+                  />
+                )}
+
+                {/* Filters */}
+                <LogFilters
+                  filter={activeTab.filter}
+                  setFilter={(filter) =>
+                    setTabs((prev) =>
+                      prev.map((tab) =>
+                        tab.id === activeTabId ? { ...tab, filter } : tab
+                      )
+                    )
+                  }
+                  searchTerm={activeTab.searchTerm}
+                  setSearchTerm={(searchTerm) =>
+                    setTabs((prev) =>
+                      prev.map((tab) =>
+                        tab.id === activeTabId ? { ...tab, searchTerm } : tab
+                      )
+                    )
+                  }
+                  sortDirection={activeTab.sortDirection}
+                  setSortDirection={(sortDirection) =>
+                    setTabs((prev) =>
+                      prev.map((tab) =>
+                        tab.id === activeTabId ? { ...tab, sortDirection } : tab
+                      )
+                    )
+                  }
+                />
+
+                {/* Statistics */}
                 <LogStats stats={stats} />
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => setViewMode('logs')}
-                    className={`px-4 py-2 rounded flex items-center gap-2 ${
-                      viewMode === 'logs' ? 'bg-blue-500 text-white' : 'bg-gray-100'
-                    }`}
-                  >
-                    <List className="w-4 h-4" /> Log View
-                  </button>
-                  <button
-                    onClick={() => setViewMode('patterns')}
-                    className={`px-4 py-2 rounded flex items-center gap-2 ${
-                      viewMode === 'patterns' ? 'bg-blue-500 text-white' : 'bg-gray-100'
-                    }`}
-                  >
-                    <Hash className="w-4 h-4" /> Pattern View
-                  </button>
-                </div>
+
+                {/* Log View or Pattern View */}
+                {activeTab.viewMode === 'logs' ? (
+                  <div className="space-y-2 mt-4">
+                    {filteredAndSortedLogs.map((log, index) => (
+                      <LogEntry key={index} log={log} />
+                    ))}
+                  </div>
+                ) : (
+                  <PatternView patterns={findPatterns(filteredAndSortedLogs)} />
+                )}
               </div>
-
-              <LogStats stats={stats} />
-
-              {viewMode === 'logs' ? (
-                <div className="space-y-2 mt-4">
-                  {filteredAndSortedLogs.map((log, index) => (
-                    <LogEntry key={index} log={log} />
-                  ))}
-                </div>
-              ) : (
-                <PatternView patterns={findPatterns(filteredAndSortedLogs)} />
-              )}
-            </>
-          )}
-        </CardContent>
-      </Card>
+            ) : (
+              <div className="text-gray-500">No tabs open. Add a new tab to get started.</div>
+            )}
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 };
