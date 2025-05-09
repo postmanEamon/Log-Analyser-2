@@ -20,6 +20,7 @@
     "next": "^15.3.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-window": "^1.8.11",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
     "unrar.js": "^0.2.5"
@@ -30,6 +31,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/react-window": "^1.8.8",
     "concurrently": "^9.1.2",
     "electron": "^34.0.0",
     "electron-builder": "^25.1.8",
