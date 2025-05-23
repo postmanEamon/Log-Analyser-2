@@ -4,7 +4,7 @@ import { FixedSizeList as List } from "react-window";
 interface FileViewerProps {
   fileContent: string;
   height?: number; // Optional: height of the viewer in px
-  width?: number;  // Optional: width of the viewer in px
+  width?: number | string;  // Optional: width of the viewer in px
   lineHeight?: number; // Optional: height of each line in px
 }
 
