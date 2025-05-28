@@ -39,6 +39,8 @@ const LogAnalyzer = () => {
   const [activeTabId, setActiveTabId] = useState<string | null>(tabs.length > 0 ? tabs[0].id : null); // Safeguard against empty tabs array
   const [editingTabId, setEditingTabId] = useState<string | null>(null); // ID of the tab being renamed
   const [tempTabName, setTempTabName] = useState<string>(''); // Temporary name for the tab being edited
+  const [currentPage, setCurrentPage] = useState(1); // Track the current page
+  const logsPerPage = 800; // Maximum logs per page
 
   // Add a new tab
   const addTab = () => {
@@ -179,6 +181,20 @@ const LogAnalyzer = () => {
 
   // Calculate statistics for the logs
   const stats = calculateLogStats(currentLogs, filteredAndSortedLogs);
+
+  // Calculate the logs to display for the current page
+  const paginatedLogs = filteredAndSortedLogs.slice(
+    (currentPage - 1) * logsPerPage,
+    currentPage * logsPerPage
+  );
+
+  // Calculate total pages
+  const totalPages = Math.ceil(filteredAndSortedLogs.length / logsPerPage);
+
+  // Handle page change
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   return (
     <div className="max-w-6xl mx-auto">
@@ -335,12 +351,31 @@ const LogAnalyzer = () => {
                 {/* Log View or Pattern View */}
                 {activeTab.viewMode === 'logs' ? (
                   <div className="space-y-2 mt-4">
-                    {filteredAndSortedLogs.map((log, index) => (
+                    {paginatedLogs.map((log, index) => (
                       <LogEntry key={index} log={log} />
                     ))}
                   </div>
                 ) : (
                   <PatternView patterns={findPatterns(filteredAndSortedLogs)} />
+                )}
+
+                {/* Pagination Controls */}
+                {totalPages > 1 && (
+                  <div className="flex justify-center mt-4">
+                    {Array.from({ length: totalPages }, (_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => handlePageChange(index + 1)}
+                        className={`px-3 py-1 mx-1 rounded ${
+                          currentPage === index + 1
+                            ? 'bg-blue-500 text-white'
+                            : 'bg-gray-200 text-gray-700'
+                        }`}
+                      >
+                        {index + 1}
+                      </button>
+                    ))}
+                  </div>
                 )}
               </div>
             ) : (
