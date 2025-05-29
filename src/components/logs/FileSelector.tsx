@@ -21,10 +21,10 @@ export const FileSelector: React.FC<FileSelectorProps> = ({
       {memoizedFiles.map((file) => (
         <div
           key={file.id}
-          className={`flex items-center gap-2 px-3 py-1 rounded-full cursor-pointer border mb-2 ${
+          className={`flex items-center gap-2 px-3 py-1 rounded-full cursor-pointer mb-2 border-none ${
             selectedFileId === file.id
-              ? 'bg-blue-100 dark:bg-[#1d4ed8] border-blue-500 dark:border-blue-400 text-blue-700 dark:text-blue-200'
-              : 'bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200'
+              ? 'bg-blue-100 dark:bg-[#1d4ed8] text-blue-700 dark:text-blue-200'
+              : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200'
           }`}
           onClick={() => onFileSelect(file.id)}
         >
