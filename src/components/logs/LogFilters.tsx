@@ -38,7 +38,7 @@ export const LogFilters = ({
           title="Sort by date"
         >
           <ArrowUpDown className="w-4 h-4" />
-          {sortDirection === 'asc' ? 'Newest First' : 'Oldest First'}
+          {sortDirection === 'desc' ? 'Newest First' : 'Oldest First'}
         </button>
         <div className="w-px h-6 bg-gray-300 mx-2" />
         <button

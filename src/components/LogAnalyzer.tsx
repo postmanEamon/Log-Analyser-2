@@ -205,7 +205,7 @@ const LogAnalyzer = () => {
               <span>Log Analyzer</span>
               <button
                 onClick={addTab}
-                className="ml-auto px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-[#1d4ed8] dark:hover:bg-[#1d4ed8]"
+                className="ml-auto px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-gray-700 dark:hover:bg-gray-600"
               >
                 <Plus className="w-4 h-4" />
               </button>
@@ -214,14 +214,18 @@ const LogAnalyzer = () => {
           </CardHeader>
           <CardContent>
             {/* Tab Navigation */}
-            <div className="flex items-center gap-2 border-b">
+            <div className="flex overflow-x-auto gap-2 border-b">
               {tabs.map((tab) => (
                 <div
                   key={tab.id}
-                  className={`px-4 py-2 rounded-t cursor-pointer ${activeTabId === tab.id ? 'bg-blue-500 text-white dark:bg-[#1d4ed8]' : 'bg-gray-100 dark:bg-gray-800'}`}
+                  className={`flex items-center gap-2 px-3 py-1 rounded-full cursor-pointer mb-2 border-none ${
+                    activeTabId === tab.id
+                      ? 'bg-blue-100 dark:bg-[#1d4ed8] text-blue-700 dark:text-blue-200'
+                      : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200'
+                  }`}
                   onClick={() => setActiveTabId(tab.id)}
                 >
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1">
                     {editingTabId === tab.id ? (
                       <input
                         type="text"
@@ -236,7 +240,7 @@ const LogAnalyzer = () => {
                       />
                     ) : (
                       <div className="flex items-center gap-1">
-                        <span>{tab.name}</span>
+                        <span className="truncate">{tab.name}</span>
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
@@ -284,7 +288,7 @@ const LogAnalyzer = () => {
                     type="file"
                     onChange={handleFileUpload}
                     multiple
-                    className="block w-full text-sm text-gray-500 dark:text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 dark:file:bg-blue-900 file:text-blue-700 dark:file:text-blue-200 hover:file:bg-blue-100 dark:hover:file:bg-blue-800 mt-4"
+                    className="block w-full text-sm text-gray-500 dark:text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 dark:file:bg-gray-700 file:text-blue-700 dark:file:text-gray-300 hover:file:bg-blue-100 dark:hover:file:bg-gray-600 mt-4"
                   />
                 </div>
 
