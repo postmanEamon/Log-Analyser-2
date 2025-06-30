@@ -170,7 +170,7 @@ export const LogFilters = ({
         <div className="flex rounded border bg-white dark:bg-gray-900">
           <button
             onClick={() => setSearchScope('current')}
-            className={`px-3 py-2 rounded-l flex items-center gap-2 text-sm ${
+            className={`px-4 py-2 rounded-l flex items-center gap-2 ${
               searchScope === 'current' 
                 ? 'bg-blue-500 text-white dark:bg-blue-600' 
                 : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
@@ -181,7 +181,7 @@ export const LogFilters = ({
           </button>
           <button
             onClick={() => setSearchScope('all')}
-            className={`px-3 py-2 rounded-r flex items-center gap-2 text-sm ${
+            className={`px-4 py-2 rounded-r flex items-center gap-2 ${
               searchScope === 'all' 
                 ? 'bg-blue-500 text-white dark:bg-blue-600' 
                 : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
