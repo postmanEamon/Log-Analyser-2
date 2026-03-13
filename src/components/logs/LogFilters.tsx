@@ -263,10 +263,10 @@ export const LogFilters = ({
                 type="button"
                 onClick={onExtractWorkspaceIds}
                 className="px-4 py-2 rounded bg-gray-100 dark:bg-gray-700 flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 whitespace-nowrap"
-                title="Extract workspace IDs from logs"
+                title="Get workspace IDs from logs"
               >
                 <Layers className="w-4 h-4" />
-                Extract workspace IDs
+                Get workspace IDs
               </button>
             </div>
           )}
