@@ -1139,7 +1139,7 @@ const LogAnalyzer = () => {
         </div>
       </div>
 
-      {/* Extract workspace IDs modal (Desktop Logs only) */}
+      {/* Get workspace IDs modal (Desktop Logs only) */}
       {showExtractIdsModal && extractedIds && (
         <Modal onClose={() => { setShowExtractIdsModal(false); setExtractIdsCopyWorkspace(false); }}>
           <div className="flex flex-col gap-4 w-fit">
