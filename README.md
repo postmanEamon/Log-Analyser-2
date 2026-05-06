@@ -1,4 +1,4 @@
-# Log Analyser
+# 🔍 Log Analyser
 
 A Next.js web app for analysing Postman desktop app logs and HAR files. Built to help support engineers quickly diagnose customer-reported issues.
 
