@@ -15,5 +15,5 @@ jobs:
 
       - name: Push to bizzanteen/Log-Analyser
         run: |
-          git remote add personal https://bizzanteen:${{ secrets.PERSONAL_GITHUB_TOKEN }}@github.com/bizzanteen/Log-Analyser.git
+          git remote add personal https://x-access-token:${{ secrets.PERSONAL_GITHUB_TOKEN }}@github.com/bizzanteen/Log-Analyser.git
           git push personal main --force
