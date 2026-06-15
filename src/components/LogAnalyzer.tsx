@@ -189,16 +189,32 @@ const LogAnalyzer = () => {
     );
   };
 
-  const activeSourceFiles = getFilesForCurrentSource(activeTab);
-  const effectiveSelectedFileId =
-    activeSourceFiles.find(f => f.id === activeTab?.selectedFileId)?.id ??
-    activeSourceFiles[0]?.id ??
-    null;
+  // Memoized: tab.files filtered by current source type. Re-running the .filter
+  // every render produced a new array reference, which broke filteredAndSortedLogs'
+  // memoization and put the patterns useEffect into an infinite re-render loop.
+  const activeSourceFiles = useMemo(
+    () => getFilesForCurrentSource(activeTab),
+    // getFilesForCurrentSource closes over logSourceType, so list it explicitly
+    [activeTab?.files, logSourceType],
+  );
+
+  const effectiveSelectedFileId = useMemo(
+    () =>
+      activeSourceFiles.find((f) => f.id === activeTab?.selectedFileId)?.id ??
+      activeSourceFiles[0]?.id ??
+      null,
+    [activeSourceFiles, activeTab?.selectedFileId],
+  );
 
   // Get logs based on search scope (current file or all files)
-  const currentLogs = activeTab?.searchScope === 'all' 
-    ? activeSourceFiles.flatMap(file => file.logs.map(log => ({ ...log, fileName: file.name })))
-    : (activeSourceFiles.find((file) => file.id === effectiveSelectedFileId)?.logs || []);
+  const currentLogs = useMemo(() => {
+    if (!activeTab) return [];
+    return activeTab.searchScope === 'all'
+      ? activeSourceFiles.flatMap((file) =>
+          file.logs.map((log) => ({ ...log, fileName: file.name })),
+        )
+      : activeSourceFiles.find((file) => file.id === effectiveSelectedFileId)?.logs ?? [];
+  }, [activeTab?.searchScope, activeSourceFiles, effectiveSelectedFileId]);
 
   const handleExtractWorkspaceIds = () => {
     if (!activeTab) return;
@@ -1054,7 +1070,7 @@ const LogAnalyzer = () => {
       {/* Export ticket reply modal */}
       {showExportModal && (
         <Modal onClose={() => setShowExportModal(false)}>
-          <div className="flex flex-col gap-4 w-[min(70rem,90vw)]">
+          <div className="flex flex-col gap-4 w-[min(60rem,calc(90vw-3rem))]">
             <div className="flex items-center justify-between gap-4 border-b border-gray-200 dark:border-gray-700 pb-2">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Export ticket reply</h3>
