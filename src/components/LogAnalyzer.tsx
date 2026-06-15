@@ -11,7 +11,7 @@ import { PatternView } from './logs/PatternView';
 import { HarTimelineView } from './logs/HarTimelineView';
 import type { PatternGroup } from '../utils/patternMatcher';
 import { parseLinesAsync, findPatternsAsync } from '../utils/workerClient';
-import { Plus, X, Copy, Check, Filter } from 'lucide-react';
+import { X, Copy, Check, Filter } from 'lucide-react';
 import { Archive } from 'libarchive.js';
 import { ThemeToggle } from "./theme-toggle";
 import { Modal } from '@/components/ui/modal';
@@ -63,8 +63,6 @@ const LogAnalyzer = () => {
   }]); // Ensure at least one tab is always initialized
 
   const [activeTabId, setActiveTabId] = useState<string | null>(tabs.length > 0 ? tabs[0].id : null); // Safeguard against empty tabs array
-  const [editingTabId, setEditingTabId] = useState<string | null>(null); // ID of the tab being renamed
-  const [tempTabName, setTempTabName] = useState<string>(''); // Temporary name for the tab being edited
   const [currentPage, setCurrentPage] = useState(1); // Track the current page
   const [pageInput, setPageInput] = useState(''); // Input for jumping to specific page
   const [copyAllCopied, setCopyAllCopied] = useState(false); // State for copy button animation
@@ -76,59 +74,6 @@ const LogAnalyzer = () => {
   const [extractedIdsErrorsOnly, setExtractedIdsErrorsOnly] = useState<ExtractedIds | null>(null);
   const [extractIdsErrorsOnlyFilter, setExtractIdsErrorsOnlyFilter] = useState(false);
   const [extractIdsCopyWorkspace, setExtractIdsCopyWorkspace] = useState(false);
-
-  // Add a new tab
-  const addTab = () => {
-    const newTab: Tab = {
-      id: crypto.randomUUID(),
-      name: `Ticket ${tabs.length + 1}`,
-      files: [],
-      selectedFileId: null,
-      filter: 'error',
-      harFilter: 'all',
-      searchTerm: '',
-      searchTerms: [], // Initialize as empty array
-      searchScope: 'all', // Default search scope
-      dateRange: { start: '', end: '' }, // Initialize date range
-      sortDirection: 'desc',
-      viewMode: 'logs',
-    };
-    setTabs((prev) => [...prev, newTab]);
-    setActiveTabId(newTab.id); // Set the new tab as active
-  };
-
-  // Remove a tab
-  const removeTab = (id: string) => {
-    setTabs((prev) => prev.filter((tab) => tab.id !== id));
-    if (activeTabId === id) {
-      setActiveTabId(tabs.length > 1 ? tabs[0].id : null); // Switch to the first tab or null if no tabs remain
-    }
-  };
-
-  // Start renaming a tab
-  const startRenamingTab = (id: string) => {
-    setEditingTabId(id);
-    setTempTabName(''); // Clear the temporary name to always show the placeholder
-  };
-
-  // Save the renamed tab
-  const saveRenamedTab = () => {
-    if (!editingTabId) return;
-    const currentEditingTabId = editingTabId;
-    if (tempTabName.trim() === '') {
-      // No change — leave the existing name in place
-      setEditingTabId(null);
-      setTempTabName('');
-      return;
-    }
-    setTabs((prev) =>
-      prev.map((tab) =>
-        tab.id === currentEditingTabId ? { ...tab, name: tempTabName } : tab
-      )
-    );
-    setEditingTabId(null);
-    setTempTabName('');
-  };
 
   // Handle file uploads for the active tab
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -915,9 +860,7 @@ const LogAnalyzer = () => {
                     </div>
                   )}
                 </div>
-              ) : (
-                <div className="text-gray-500">No tabs open. Add a new tab to get started.</div>
-              )}
+              ) : null}
             </CardContent>
           </Card>
         </div>
