@@ -19,6 +19,21 @@ const config = {
     },
     extend: {
       colors: {
+        // Postman brand orange — 500 is the exact brand hue (#FF6C37).
+        // The 50/100/.../900 scale follows Tailwind conventions so swap-ins
+        // for bg-blue-*, text-blue-* etc. work shade-for-shade.
+        postman: {
+          50:  "#FFF4EE",
+          100: "#FFE2D1",
+          200: "#FFC3A3",
+          300: "#FFA376",
+          400: "#FF8052",
+          500: "#FF6C37",
+          600: "#EA5826",
+          700: "#C44619",
+          800: "#9A3712",
+          900: "#7A2C0D",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

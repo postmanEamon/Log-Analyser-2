@@ -595,7 +595,7 @@ const LogAnalyzer = () => {
                     onClick={() => setLogSourceType('desktop')}
                     className={`px-4 py-2 rounded-l flex items-center gap-2 text-sm ${
                       logSourceType === 'desktop'
-                        ? 'bg-blue-500 text-white dark:bg-blue-600'
+                        ? 'bg-postman-500 text-white dark:bg-postman-600'
                         : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                     }`}
                   >
@@ -605,7 +605,7 @@ const LogAnalyzer = () => {
                     onClick={() => setLogSourceType('har')}
                     className={`px-4 py-2 rounded-r flex items-center gap-2 text-sm ${
                       logSourceType === 'har'
-                        ? 'bg-blue-500 text-white dark:bg-blue-600'
+                        ? 'bg-postman-500 text-white dark:bg-postman-600'
                         : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                     }`}
                   >
@@ -648,7 +648,7 @@ const LogAnalyzer = () => {
                       <button
                         type="button"
                         onClick={() => fileInputRef.current?.click()}
-                        className="mt-4 px-4 py-2 rounded-full border-0 text-sm font-semibold bg-blue-50 dark:bg-gray-700 text-blue-700 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-gray-600"
+                        className="mt-4 px-4 py-2 rounded-full border-0 text-sm font-semibold bg-postman-50 dark:bg-gray-700 text-postman-700 dark:text-gray-300 hover:bg-postman-100 dark:hover:bg-gray-600"
                       >
                         Choose files
                       </button>
@@ -826,12 +826,12 @@ const LogAnalyzer = () => {
                                 <button
                                   type="button"
                                   onClick={() => setSelectedHarIndex(null)}
-                                  className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+                                  className="text-sm text-postman-600 dark:text-postman-400 hover:underline"
                                 >
                                   Show all
                                 </button>
                               </div>
-                              <div className="ring-2 ring-blue-500 rounded-lg">
+                              <div className="ring-2 ring-postman-500 rounded-lg">
                                 <LogEntry
                                   log={filteredAndSortedLogs[selectedHarIndex]}
                                   showFileName={activeTab.searchScope === 'all'}
@@ -906,7 +906,7 @@ const LogAnalyzer = () => {
                               onClick={() => handlePageChange(i)}
                               className={`px-3 py-1 rounded ${
                                 currentPage === i
-                                  ? 'bg-blue-500 text-white dark:bg-blue-600'
+                                  ? 'bg-postman-500 text-white dark:bg-postman-600'
                                   : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
                               }`}
                             >
@@ -957,7 +957,7 @@ const LogAnalyzer = () => {
                         />
                         <button
                           type="submit"
-                          className="px-2 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+                          className="px-2 py-1 bg-postman-500 text-white rounded text-sm hover:bg-postman-600 dark:bg-postman-600 dark:hover:bg-postman-700"
                         >
                           Go
                         </button>
@@ -1039,7 +1039,7 @@ const LogAnalyzer = () => {
                       onClick={() => handleFilterByWorkspaceId(id)}
                       className={`shrink-0 p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 ${
                         isFiltered
-                          ? 'text-blue-600 dark:text-blue-400'
+                          ? 'text-postman-600 dark:text-postman-400'
                           : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
                       }`}
                       title={isFiltered ? 'Remove from search' : 'Filter logs by this workspace ID'}
@@ -1051,7 +1051,7 @@ const LogAnalyzer = () => {
                       href={`https://support.postmanlabs.com/workspaces/${id}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`text-blue-600 dark:text-blue-400 hover:underline break-all min-w-0 ${isFiltered ? 'font-bold' : ''}`}
+                      className={`text-postman-600 dark:text-postman-400 hover:underline break-all min-w-0 ${isFiltered ? 'font-bold' : ''}`}
                       title="Open in Support Dashboard"
                     >
                       {id}
@@ -1108,7 +1108,7 @@ const LogAnalyzer = () => {
                   type="button"
                   onClick={copyExportToClipboard}
                   disabled={exportLoading}
-                  className="px-3 py-1.5 rounded bg-blue-500 hover:bg-blue-600 text-white text-sm flex items-center gap-2 disabled:opacity-50"
+                  className="px-3 py-1.5 rounded bg-postman-500 hover:bg-postman-600 text-white text-sm flex items-center gap-2 disabled:opacity-50"
                 >
                   {exportCopied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                   {exportCopied ? 'Copied' : 'Copy markdown'}

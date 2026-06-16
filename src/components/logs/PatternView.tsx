@@ -57,7 +57,7 @@ export const PatternView = ({ patterns }: PatternViewProps) => {
                   </span>
                 </div>
               </div>
-              <div className="px-2 py-1 rounded-full bg-blue-100 text-blue-700 text-sm">
+              <div className="px-2 py-1 rounded-full bg-postman-100 text-postman-700 text-sm">
                 {group.count}
               </div>
             </button>

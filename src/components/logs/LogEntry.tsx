@@ -113,7 +113,7 @@ export const LogEntry = ({ log, showFileName = false }: LogEntryProps) => {
         </div>
         {tooltip && (
           <div className="relative group">
-            <div className="flex items-center justify-center w-5 h-5 bg-blue-100 text-blue-700 rounded-full cursor-pointer">
+            <div className="flex items-center justify-center w-5 h-5 bg-postman-100 text-postman-700 rounded-full cursor-pointer">
               ℹ
             </div>
             <div className="absolute left-0 top-full mt-1 hidden group-hover:block bg-black text-white text-xs p-2 rounded shadow-lg z-10 inline-block max-w-xs whitespace-nowrap">
@@ -148,7 +148,7 @@ export const LogEntry = ({ log, showFileName = false }: LogEntryProps) => {
         {showFileName && log.fileName && (
           <>
             <span className="text-gray-400">|</span>
-            <span className="font-mono text-blue-600 dark:text-blue-400">{log.fileName}</span>
+            <span className="font-mono text-postman-600 dark:text-postman-400">{log.fileName}</span>
           </>
         )}
       </div>

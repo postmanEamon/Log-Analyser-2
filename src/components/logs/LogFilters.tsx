@@ -163,12 +163,12 @@ export const LogFilters = ({
           {searchTerms.map((term, index) => (
             <span
               key={index}
-              className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-sm bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200"
+              className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-sm bg-postman-100 dark:bg-postman-900 text-postman-800 dark:text-postman-200"
             >
               {term}
               <button
                 onClick={() => removeSearchTerm(index)}
-                className="rounded-full p-0.5 hover:bg-blue-200 dark:hover:bg-blue-800"
+                className="rounded-full p-0.5 hover:bg-postman-200 dark:hover:bg-postman-800"
               >
                 <X className="w-3 h-3" />
               </button>
@@ -219,7 +219,7 @@ export const LogFilters = ({
                 min={dateRange?.start || ''}
                 onChange={(e) => handleEndDateChange(e.target.value)}
                 className={`px-3 py-2 border rounded bg-white dark:bg-gray-900 text-sm ${
-                  dateRange?.start ? 'border-blue-300 dark:border-blue-600' : ''
+                  dateRange?.start ? 'border-postman-300 dark:border-postman-600' : ''
                 }`}
                 placeholder="End date"
                 title={dateRange?.start ? `Select end date (must be after ${new Date(dateRange.start).toLocaleDateString()})` : "Select end date"}
@@ -266,8 +266,8 @@ export const LogFilters = ({
                   <button
                     onClick={() => setSearchScope('all')}
                     className={`px-4 py-2 rounded-l flex items-center gap-2 ${
-                      searchScope === 'all' 
-                        ? 'bg-blue-500 text-white dark:bg-blue-600' 
+                      searchScope === 'all'
+                        ? 'bg-postman-500 text-white dark:bg-postman-600'
                         : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                     }`}
                   >
@@ -277,8 +277,8 @@ export const LogFilters = ({
                   <button
                     onClick={() => setSearchScope('current')}
                     className={`px-4 py-2 rounded-r flex items-center gap-2 ${
-                      searchScope === 'current' 
-                        ? 'bg-blue-500 text-white dark:bg-blue-600' 
+                      searchScope === 'current'
+                        ? 'bg-postman-500 text-white dark:bg-postman-600'
                         : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                     }`}
                   >
@@ -386,8 +386,8 @@ export const LogFilters = ({
               <button
                 onClick={() => setSearchScope('all')}
                 className={`px-4 py-2 rounded-l flex items-center gap-2 ${
-                  searchScope === 'all' 
-                    ? 'bg-blue-500 text-white dark:bg-blue-600' 
+                  searchScope === 'all'
+                    ? 'bg-postman-500 text-white dark:bg-postman-600'
                     : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                 }`}
               >
@@ -397,8 +397,8 @@ export const LogFilters = ({
               <button
                 onClick={() => setSearchScope('current')}
                 className={`px-4 py-2 rounded-r flex items-center gap-2 ${
-                  searchScope === 'current' 
-                    ? 'bg-blue-500 text-white dark:bg-blue-600' 
+                  searchScope === 'current'
+                    ? 'bg-postman-500 text-white dark:bg-postman-600'
                     : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                 }`}
               >

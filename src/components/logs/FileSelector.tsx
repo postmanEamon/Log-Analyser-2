@@ -25,7 +25,7 @@ export const FileSelector: React.FC<FileSelectorProps> = ({
           key={file.id}
           className={`flex items-center gap-2 px-3 py-1 rounded-full cursor-pointer mb-2 border-none ${
             searchScope === 'all' || selectedFileId === file.id
-              ? 'bg-blue-100 dark:bg-[#1d4ed8] text-blue-700 dark:text-blue-200'
+              ? 'bg-postman-100 dark:bg-postman-700 text-postman-700 dark:text-postman-100'
               : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200'
           }`}
           onClick={() => onFileSelect(file.id)}
