@@ -28,7 +28,7 @@ export const LogStats = ({ stats, harBuckets }: LogStatsProps) => {
         </>
       ) : (
         <>
-          <span className="text-blue-600 dark:text-blue-400">Info: {stats.info}</span>
+          <span className="text-gray-600 dark:text-gray-400">Info: {stats.info}</span>
           <span className="text-yellow-600 dark:text-yellow-400">Warn: {stats.warn}</span>
           <span className="text-red-600 dark:text-red-400">Error: {stats.error}</span>
         </>
