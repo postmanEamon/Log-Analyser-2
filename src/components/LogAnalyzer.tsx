@@ -31,6 +31,14 @@ type LibarchiveEntry = {
   path: string;
 };
 
+// macOS adds noise into zips it creates: a __MACOSX/ folder full of
+// AppleDouble metadata files (each prefixed with ._), plus .DS_Store
+// finder caches. They're always empty/binary; never log content.
+const isMacOSArtifact = (fullName: string, fileName: string): boolean =>
+  fullName.includes('__MACOSX/') ||
+  fileName.startsWith('._') ||
+  fileName === '.DS_Store';
+
 interface Tab {
   id: string;
   name: string;
@@ -103,9 +111,10 @@ const LogAnalyzer = () => {
           try {
             const entries = (await archive.getFilesArray()) as LibarchiveEntry[];
             for (const entry of entries) {
+              const fullName = `${entry.path}${entry.file.name}`;
+              if (isMacOSArtifact(fullName, entry.file.name)) continue;
               const blob = await entry.file.extract();
               if (!blob) continue;
-              const fullName = `${entry.path}${entry.file.name}`;
               const lowerName = fullName.toLowerCase();
 
               if (logSourceType === 'har') {
