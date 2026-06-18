@@ -129,7 +129,7 @@ export const HarTimelineView = ({ logs, selectedIndex, onSelect, unfilteredEntry
     const isFilterEmpty = unfilteredEntryCount != null && unfilteredEntryCount > 0;
     if (isFilterEmpty) {
       return (
-        <div className="text-sm text-gray-500 dark:text-gray-400 py-4">
+        <div className="text-sm text-gray-500 dark:text-stone-400 py-4">
           No HAR entries to display for the selected filter.
         </div>
       );
@@ -148,19 +148,19 @@ export const HarTimelineView = ({ logs, selectedIndex, onSelect, unfilteredEntry
 
   return (
     <div className="space-y-2">
-      <div className="text-sm text-gray-600 dark:text-gray-300">
+      <div className="text-sm text-gray-600 dark:text-stone-300">
         Request flow — main timeline at bottom; new lanes above when requests run at the same time. Click a bar to show only that request below.
       </div>
 
-      <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 overflow-hidden">
-        <div className="flex justify-between px-1 py-0.5 text-[10px] text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700">
+      <div className="rounded-lg border border-gray-200 dark:border-stone-700 bg-gray-50 dark:bg-stone-900 overflow-hidden">
+        <div className="flex justify-between px-1 py-0.5 text-[10px] text-gray-500 dark:text-stone-400 border-b border-gray-200 dark:border-stone-700">
           {axisTicks.map(({ pct, ms }) => (
             <span key={pct} style={{ marginLeft: pct === 0 ? 0 : '-2px' }}>{ms} ms</span>
           ))}
         </div>
 
         <div
-          className="relative w-full border-t border-gray-200 dark:border-gray-700 cursor-default"
+          className="relative w-full border-t border-gray-200 dark:border-stone-700 cursor-default"
           style={{ height: `${trackHeight}px` }}
           onClick={(e) => {
             if (!(e.target as HTMLElement).closest('button')) onSelect?.(null);
@@ -169,7 +169,7 @@ export const HarTimelineView = ({ logs, selectedIndex, onSelect, unfilteredEntry
         >
           <div className="absolute inset-0 flex pointer-events-none" style={{ height: `${trackHeight}px` }}>
             {axisTicks.slice(0, -1).map(({ pct }) => (
-              <div key={pct} className="border-r border-gray-200 dark:border-gray-700" style={{ width: '25%' }} />
+              <div key={pct} className="border-r border-gray-200 dark:border-stone-700" style={{ width: '25%' }} />
             ))}
           </div>
 
@@ -179,7 +179,7 @@ export const HarTimelineView = ({ logs, selectedIndex, onSelect, unfilteredEntry
             return (
               <div
                 key={lane}
-                className={`absolute left-0 right-0 flex items-center px-0.5 border-t border-gray-200 dark:border-gray-700 ${
+                className={`absolute left-0 right-0 flex items-center px-0.5 border-t border-gray-200 dark:border-stone-700 ${
                   isMainLane ? 'bg-blue-500/25 dark:bg-blue-400/30' : ''
                 }`}
                 style={{ top: `${displayRow * ROW_HEIGHT}px`, height: `${ROW_HEIGHT}px` }}
@@ -224,7 +224,7 @@ export const HarTimelineView = ({ logs, selectedIndex, onSelect, unfilteredEntry
           })}
         </div>
 
-        <div className="flex flex-wrap gap-3 px-2 py-1.5 border-t border-gray-200 dark:border-gray-700 text-[10px] text-gray-600 dark:text-gray-400">
+        <div className="flex flex-wrap gap-3 px-2 py-1.5 border-t border-gray-200 dark:border-stone-700 text-[10px] text-gray-600 dark:text-stone-400">
           <span className="flex items-center gap-1"><span className="w-2 h-2 rounded bg-blue-500" /> 1xx</span>
           <span className="flex items-center gap-1"><span className="w-2 h-2 rounded bg-green-500" /> 2xx</span>
           <span className="flex items-center gap-1"><span className="w-2 h-2 rounded bg-amber-500" /> 3xx</span>

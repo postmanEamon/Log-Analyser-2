@@ -590,13 +590,13 @@ const LogAnalyzer = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-4 flex-wrap">
                 <span>Log Analyser</span>
-                <div className="flex rounded border bg-white dark:bg-gray-900">
+                <div className="flex rounded border bg-white dark:bg-stone-900">
                   <button
                     onClick={() => setLogSourceType('desktop')}
                     className={`px-4 py-2 rounded-l flex items-center gap-2 text-sm ${
                       logSourceType === 'desktop'
                         ? 'bg-postman-500 text-white dark:bg-postman-600'
-                        : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                        : 'bg-gray-100 dark:bg-stone-700 text-gray-700 dark:text-stone-300 hover:bg-gray-200 dark:hover:bg-stone-600'
                     }`}
                   >
                     Desktop Logs
@@ -606,7 +606,7 @@ const LogAnalyzer = () => {
                     className={`px-4 py-2 rounded-r flex items-center gap-2 text-sm ${
                       logSourceType === 'har'
                         ? 'bg-postman-500 text-white dark:bg-postman-600'
-                        : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                        : 'bg-gray-100 dark:bg-stone-700 text-gray-700 dark:text-stone-300 hover:bg-gray-200 dark:hover:bg-stone-600'
                     }`}
                   >
                     HAR Logs
@@ -648,11 +648,11 @@ const LogAnalyzer = () => {
                       <button
                         type="button"
                         onClick={() => fileInputRef.current?.click()}
-                        className="mt-4 px-4 py-2 rounded-full border-0 text-sm font-semibold bg-postman-50 dark:bg-gray-700 text-postman-700 dark:text-gray-300 hover:bg-postman-100 dark:hover:bg-gray-600"
+                        className="mt-4 px-4 py-2 rounded-full border-0 text-sm font-semibold bg-postman-50 dark:bg-stone-700 text-postman-700 dark:text-stone-300 hover:bg-postman-100 dark:hover:bg-stone-600"
                       >
                         Choose files
                       </button>
-                      <span className="text-sm text-gray-500 dark:text-gray-400 mt-4 truncate">
+                      <span className="text-sm text-gray-500 dark:text-stone-400 mt-4 truncate">
                         {activeSourceFiles.length === 0
                           ? 'No file chosen'
                           : (() => {
@@ -770,7 +770,7 @@ const LogAnalyzer = () => {
                   {/* Statistics and log count on one line */}
                   <div className="flex items-center justify-between mt-4 mb-2 min-h-[36px] flex-wrap gap-x-4 gap-y-1">
                     <div className="flex items-center gap-4 flex-wrap">
-                      <span className="text-sm text-gray-600 dark:text-gray-400 inline-flex items-center gap-4">
+                      <span className="text-sm text-gray-600 dark:text-stone-400 inline-flex items-center gap-4">
                         <LogStats stats={stats} harBuckets={harBuckets} />
                         <span>
                           Showing {Math.min((currentPage - 1) * logsPerPage + 1, filteredAndSortedLogs.length)} – {Math.min(currentPage * logsPerPage, filteredAndSortedLogs.length)} of {filteredAndSortedLogs.length} logs
@@ -781,7 +781,7 @@ const LogAnalyzer = () => {
                       {activeTab.searchTerms.length > 0 && (
                         <button
                           onClick={copyAllLogs}
-                          className="px-3 py-1 rounded bg-gray-100 dark:bg-gray-700 flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-gray-600 text-sm"
+                          className="px-3 py-1 rounded bg-gray-100 dark:bg-stone-700 flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-stone-600 text-sm"
                           title="Copy all filtered logs"
                         >
                           {copyAllCopied ? (
@@ -796,7 +796,7 @@ const LogAnalyzer = () => {
                       {filteredAndSortedLogs.length > 0 && (
                         <button
                           onClick={openExport}
-                          className="px-3 py-1 rounded bg-gray-100 dark:bg-gray-700 flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-gray-600 text-sm"
+                          className="px-3 py-1 rounded bg-gray-100 dark:bg-stone-700 flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-stone-600 text-sm"
                           title="Build a markdown summary you can paste into a ticket reply"
                         >
                           <Copy className="w-4 h-4" />
@@ -820,7 +820,7 @@ const LogAnalyzer = () => {
                           {selectedHarIndex !== null && selectedHarIndex >= 0 && selectedHarIndex < filteredAndSortedLogs.length ? (
                             <>
                               <div className="flex items-center gap-2 mb-2">
-                                <span className="text-sm text-gray-600 dark:text-gray-400">
+                                <span className="text-sm text-gray-600 dark:text-stone-400">
                                   Showing 1 request (selected from timeline)
                                 </span>
                                 <button
@@ -872,7 +872,7 @@ const LogAnalyzer = () => {
                       <button
                         onClick={() => handlePageChange(1)}
                         disabled={currentPage === 1}
-                        className="px-3 py-1 rounded bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="px-3 py-1 rounded bg-gray-200 dark:bg-stone-700 text-gray-700 dark:text-stone-300 hover:bg-gray-300 dark:hover:bg-stone-600 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         ««
                       </button>
@@ -881,7 +881,7 @@ const LogAnalyzer = () => {
                       <button
                         onClick={() => handlePageChange(currentPage - 1)}
                         disabled={currentPage === 1}
-                        className="px-3 py-1 rounded bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="px-3 py-1 rounded bg-gray-200 dark:bg-stone-700 text-gray-700 dark:text-stone-300 hover:bg-gray-300 dark:hover:bg-stone-600 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         ‹
                       </button>
@@ -894,7 +894,7 @@ const LogAnalyzer = () => {
                         // Show ellipsis if we're not starting from page 1
                         if (start > 1) {
                           pages.push(
-                            <span key="start-ellipsis" className="px-2 text-gray-500 dark:text-gray-400">...</span>
+                            <span key="start-ellipsis" className="px-2 text-gray-500 dark:text-stone-400">...</span>
                           );
                         }
                         
@@ -907,7 +907,7 @@ const LogAnalyzer = () => {
                               className={`px-3 py-1 rounded ${
                                 currentPage === i
                                   ? 'bg-postman-500 text-white dark:bg-postman-600'
-                                  : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
+                                  : 'bg-gray-200 dark:bg-stone-700 text-gray-700 dark:text-stone-300 hover:bg-gray-300 dark:hover:bg-stone-600'
                               }`}
                             >
                               {i}
@@ -918,7 +918,7 @@ const LogAnalyzer = () => {
                         // Show ellipsis if we're not ending at the last page
                         if (end < totalPages) {
                           pages.push(
-                            <span key="end-ellipsis" className="px-2 text-gray-500 dark:text-gray-400">...</span>
+                            <span key="end-ellipsis" className="px-2 text-gray-500 dark:text-stone-400">...</span>
                           );
                         }
                         
@@ -929,7 +929,7 @@ const LogAnalyzer = () => {
                       <button
                         onClick={() => handlePageChange(currentPage + 1)}
                         disabled={currentPage === totalPages}
-                        className="px-3 py-1 rounded bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="px-3 py-1 rounded bg-gray-200 dark:bg-stone-700 text-gray-700 dark:text-stone-300 hover:bg-gray-300 dark:hover:bg-stone-600 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         ›
                       </button>
@@ -938,21 +938,21 @@ const LogAnalyzer = () => {
                       <button
                         onClick={() => handlePageChange(totalPages)}
                         disabled={currentPage === totalPages}
-                        className="px-3 py-1 rounded bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="px-3 py-1 rounded bg-gray-200 dark:bg-stone-700 text-gray-700 dark:text-stone-300 hover:bg-gray-300 dark:hover:bg-stone-600 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         »»
                       </button>
 
                       {/* Page Jump Input */}
                       <form onSubmit={handlePageInputSubmit} className="flex items-center gap-1 ml-4">
-                        <span className="text-sm text-gray-600 dark:text-gray-400">Go to:</span>
+                        <span className="text-sm text-gray-600 dark:text-stone-400">Go to:</span>
                         <input
                           type="number"
                           min="1"
                           max={totalPages}
                           value={pageInput}
                           onChange={(e) => setPageInput(e.target.value)}
-                          className="w-16 px-2 py-1 border rounded text-sm bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100"
+                          className="w-16 px-2 py-1 border rounded text-sm bg-white dark:bg-stone-800 border-gray-300 dark:border-stone-600 text-gray-900 dark:text-stone-100"
                           placeholder={currentPage.toString()}
                         />
                         <button
@@ -964,7 +964,7 @@ const LogAnalyzer = () => {
                       </form>
                       
                       {/* Page Info */}
-                      <span className="text-sm text-gray-600 dark:text-gray-400 ml-4">
+                      <span className="text-sm text-gray-600 dark:text-stone-400 ml-4">
                         Page {currentPage} of {totalPages}
                       </span>
                     </div>
@@ -980,25 +980,25 @@ const LogAnalyzer = () => {
       {showExtractIdsModal && extractedIds && (
         <Modal onClose={() => { setShowExtractIdsModal(false); setExtractIdsCopyWorkspace(false); }}>
           <div className="flex flex-col gap-4 w-fit">
-            <div className="flex items-center justify-between gap-4 border-b border-gray-200 dark:border-gray-700 pb-2">
+            <div className="flex items-center justify-between gap-4 border-b border-gray-200 dark:border-stone-700 pb-2">
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Workspace IDs</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 italic mt-0.5">Click on any ID to open in Support Dashboard</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400 italic mt-0.5">Click filter icon to return logs for this workspace</p>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-stone-100">Workspace IDs</h3>
+                <p className="text-sm text-gray-600 dark:text-stone-400 italic mt-0.5">Click on any ID to open in Support Dashboard</p>
+                <p className="text-sm text-gray-600 dark:text-stone-400 italic mt-0.5">Click filter icon to return logs for this workspace</p>
                 <label className="flex items-center gap-2 mt-2 cursor-pointer">
                   <input
                     type="checkbox"
                     checked={extractIdsErrorsOnlyFilter}
                     onChange={(e) => setExtractIdsErrorsOnlyFilter(e.target.checked)}
-                    className="rounded border-gray-300 dark:border-gray-600"
+                    className="rounded border-gray-300 dark:border-stone-600"
                   />
-                  <span className="text-sm text-gray-700 dark:text-gray-300">Errors only</span>
+                  <span className="text-sm text-gray-700 dark:text-stone-300">Errors only</span>
                 </label>
               </div>
               <button
                 type="button"
                 onClick={() => setShowExtractIdsModal(false)}
-                className="p-1.5 rounded text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 shrink-0"
+                className="p-1.5 rounded text-gray-500 hover:text-gray-700 dark:hover:text-stone-300 hover:bg-gray-100 dark:hover:bg-stone-700 shrink-0"
                 aria-label="Close"
               >
                 <X className="w-5 h-5" />
@@ -1014,7 +1014,7 @@ const LogAnalyzer = () => {
               return (
             <div className="flex flex-col gap-2 w-fit min-w-[22rem]">
               <div className="flex items-center justify-between gap-2">
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{countLabel}</span>
+                <span className="text-sm font-medium text-gray-700 dark:text-stone-300">{countLabel}</span>
                 <button
                   type="button"
                   onClick={async () => {
@@ -1023,13 +1023,13 @@ const LogAnalyzer = () => {
                     setExtractIdsCopyWorkspace(true);
                     setTimeout(() => setExtractIdsCopyWorkspace(false), 2000);
                   }}
-                  className="px-2 py-1 rounded bg-gray-100 dark:bg-gray-700 flex items-center gap-1.5 text-sm hover:bg-gray-200 dark:hover:bg-gray-600 shrink-0"
+                  className="px-2 py-1 rounded bg-gray-100 dark:bg-stone-700 flex items-center gap-1.5 text-sm hover:bg-gray-200 dark:hover:bg-stone-600 shrink-0"
                 >
                   {extractIdsCopyWorkspace ? <Check className="w-4 h-4 text-green-600" /> : <Copy className="w-4 h-4" />}
                   Copy all
                 </button>
               </div>
-              <div className="p-3 rounded bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-xs overflow-auto max-h-64 font-mono space-y-1 w-fit min-w-[22rem]">
+              <div className="p-3 rounded bg-gray-50 dark:bg-stone-900 border border-gray-200 dark:border-stone-700 text-xs overflow-auto max-h-64 font-mono space-y-1 w-fit min-w-[22rem]">
                 {displayedIds.workspaceIds.length ? displayedIds.workspaceIds.map((id) => {
                   const isFiltered = activeTab?.searchTerms?.includes(id);
                   return (
@@ -1037,10 +1037,10 @@ const LogAnalyzer = () => {
                     <button
                       type="button"
                       onClick={() => handleFilterByWorkspaceId(id)}
-                      className={`shrink-0 p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 ${
+                      className={`shrink-0 p-1 rounded hover:bg-gray-200 dark:hover:bg-stone-700 ${
                         isFiltered
                           ? 'text-postman-600 dark:text-postman-400'
-                          : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
+                          : 'text-gray-500 hover:text-gray-700 dark:hover:text-stone-300'
                       }`}
                       title={isFiltered ? 'Remove from search' : 'Filter logs by this workspace ID'}
                       aria-label={isFiltered ? 'Remove from search' : 'Filter by this ID'}
@@ -1071,17 +1071,17 @@ const LogAnalyzer = () => {
       {showExportModal && (
         <Modal onClose={() => setShowExportModal(false)}>
           <div className="flex flex-col gap-4 w-[min(60rem,calc(90vw-3rem))]">
-            <div className="flex items-center justify-between gap-4 border-b border-gray-200 dark:border-gray-700 pb-2">
+            <div className="flex items-center justify-between gap-4 border-b border-gray-200 dark:border-stone-700 pb-2">
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Export ticket reply</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 italic mt-0.5">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-stone-100">Export ticket reply</h3>
+                <p className="text-sm text-gray-600 dark:text-stone-400 italic mt-0.5">
                   Markdown summary you can paste into a Jira / GitHub / Slack reply.
                 </p>
               </div>
               <button
                 type="button"
                 onClick={() => setShowExportModal(false)}
-                className="p-1.5 rounded text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 shrink-0"
+                className="p-1.5 rounded text-gray-500 hover:text-gray-700 dark:hover:text-stone-300 hover:bg-gray-100 dark:hover:bg-stone-700 shrink-0"
                 aria-label="Close"
               >
                 <X className="w-5 h-5" />
@@ -1089,16 +1089,16 @@ const LogAnalyzer = () => {
             </div>
 
             <div className="flex items-center gap-3 flex-wrap">
-              <label className="flex items-center gap-2 cursor-pointer text-sm text-gray-700 dark:text-gray-300">
+              <label className="flex items-center gap-2 cursor-pointer text-sm text-gray-700 dark:text-stone-300">
                 <input
                   type="checkbox"
                   checked={includeFilteredLogsInExport}
                   onChange={(e) => setIncludeFilteredLogsInExport(e.target.checked)}
-                  className="rounded border-gray-300 dark:border-gray-600"
+                  className="rounded border-gray-300 dark:border-stone-600"
                 />
                 Include filtered log entries
                 {includeFilteredLogsInExport && filteredAndSortedLogs.length > 50 && (
-                  <span className="text-xs text-gray-500 dark:text-gray-400">
+                  <span className="text-xs text-gray-500 dark:text-stone-400">
                     (capped at 50 of {filteredAndSortedLogs.length})
                   </span>
                 )}
@@ -1117,7 +1117,7 @@ const LogAnalyzer = () => {
                   type="button"
                   onClick={downloadExport}
                   disabled={exportLoading}
-                  className="px-3 py-1.5 rounded bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-sm disabled:opacity-50"
+                  className="px-3 py-1.5 rounded bg-gray-100 dark:bg-stone-700 hover:bg-gray-200 dark:hover:bg-stone-600 text-sm disabled:opacity-50"
                 >
                   Download .md
                 </button>
@@ -1125,12 +1125,12 @@ const LogAnalyzer = () => {
             </div>
 
             {exportLoading ? (
-              <div className="p-6 text-sm text-gray-600 dark:text-gray-400">Computing patterns…</div>
+              <div className="p-6 text-sm text-gray-600 dark:text-stone-400">Computing patterns…</div>
             ) : (
               <textarea
                 readOnly
                 value={exportMarkdown}
-                className="w-full h-[60vh] p-3 rounded border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 text-xs font-mono text-gray-800 dark:text-gray-200 resize-none"
+                className="w-full h-[60vh] p-3 rounded border border-gray-200 dark:border-stone-700 bg-gray-50 dark:bg-stone-900 text-xs font-mono text-gray-800 dark:text-stone-200 resize-none"
               />
             )}
           </div>

@@ -71,7 +71,7 @@ export const LogEntry = ({ log, showFileName = false }: LogEntryProps) => {
       case 'warn':
         return 'bg-yellow-50 dark:bg-yellow-900';
       default:
-        return 'bg-gray-50 dark:bg-gray-800';
+        return 'bg-gray-50 dark:bg-stone-800';
     }
   };
 
@@ -125,18 +125,18 @@ export const LogEntry = ({ log, showFileName = false }: LogEntryProps) => {
         {/* Copy Button */}
         <button
           onClick={copyToClipboard}
-          className="flex items-center justify-center w-7 h-7 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded transition-colors"
+          className="flex items-center justify-center w-7 h-7 bg-gray-100 dark:bg-stone-700 hover:bg-gray-200 dark:hover:bg-stone-600 rounded transition-colors"
           title="Copy log entry"
         >
           {copied ? (
             <lucideReact.Check className="w-4 h-4 text-green-600 dark:text-green-400" />
           ) : (
-            <lucideReact.Copy className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+            <lucideReact.Copy className="w-4 h-4 text-gray-600 dark:text-stone-400" />
           )}
         </button>
         
       </div>
-      <div className="mt-2 text-xs text-gray-500 dark:text-gray-300 flex items-center gap-2 flex-wrap">
+      <div className="mt-2 text-xs text-gray-500 dark:text-stone-300 flex items-center gap-2 flex-wrap">
         <div className="flex items-center gap-2">
           <lucideReact.Clock className="w-3 h-3" />
           <span>{new Date(log.timestamp).toLocaleString()}</span>

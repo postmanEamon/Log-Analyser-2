@@ -154,11 +154,11 @@ export const LogFilters = ({
   };
 
   return (
-    <div className="space-y-4 mb-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+    <div className="space-y-4 mb-6 p-4 bg-gray-50 dark:bg-stone-800 rounded-lg">
       {/* Search Input with Tags */}
       <div className="flex items-center gap-2">
         <Search className="w-4 h-4 text-gray-500" />
-        <div className="flex-1 flex items-start gap-2 p-2 border rounded bg-white dark:bg-gray-900 min-h-[48px] flex-wrap">
+        <div className="flex-1 flex items-start gap-2 p-2 border rounded bg-white dark:bg-stone-900 min-h-[48px] flex-wrap">
           {/* Search Tags */}
           {searchTerms.map((term, index) => (
             <span
@@ -188,7 +188,7 @@ export const LogFilters = ({
         {searchTerms.length > 0 && onClearAllSearchTerms && (
           <button
             onClick={onClearAllSearchTerms}
-            className="px-3 py-2 rounded bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center gap-2 whitespace-nowrap"
+            className="px-3 py-2 rounded bg-gray-100 dark:bg-stone-700 text-gray-700 dark:text-stone-300 hover:bg-gray-200 dark:hover:bg-stone-600 flex items-center gap-2 whitespace-nowrap"
             title="Clear all search terms"
           >
             <X className="w-4 h-4" />
@@ -208,7 +208,7 @@ export const LogFilters = ({
                 type="date"
                 value={dateRange?.start || ''}
                 onChange={(e) => handleStartDateChange(e.target.value)}
-                className="px-3 py-2 border rounded bg-white dark:bg-gray-900 text-sm"
+                className="px-3 py-2 border rounded bg-white dark:bg-stone-900 text-sm"
                 placeholder="Start date"
                 title="Select start date"
               />
@@ -218,7 +218,7 @@ export const LogFilters = ({
                 value={dateRange?.end || ''}
                 min={dateRange?.start || ''}
                 onChange={(e) => handleEndDateChange(e.target.value)}
-                className={`px-3 py-2 border rounded bg-white dark:bg-gray-900 text-sm ${
+                className={`px-3 py-2 border rounded bg-white dark:bg-stone-900 text-sm ${
                   dateRange?.start ? 'border-postman-300 dark:border-postman-600' : ''
                 }`}
                 placeholder="End date"
@@ -227,7 +227,7 @@ export const LogFilters = ({
               {(dateRange?.start || dateRange?.end) && (
                 <button
                   onClick={clearDateRange}
-                  className="px-2 py-2 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+                  className="px-2 py-2 text-gray-500 hover:text-gray-700 dark:hover:text-stone-300"
                   title="Clear date filter"
                 >
                   <X className="w-4 h-4" />
@@ -241,7 +241,7 @@ export const LogFilters = ({
               <button
                 type="button"
                 onClick={onExtractWorkspaceIds}
-                className="px-4 py-2 rounded bg-gray-100 dark:bg-gray-700 flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 whitespace-nowrap"
+                className="px-4 py-2 rounded bg-gray-100 dark:bg-stone-700 flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-stone-600 text-gray-700 dark:text-stone-300 whitespace-nowrap"
                 title="Get workspace IDs from logs"
               >
                 <Layers className="w-4 h-4" />
@@ -254,7 +254,7 @@ export const LogFilters = ({
           <div className="flex gap-2 items-center">
             <button
               onClick={() => setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc')}
-              className="px-4 py-2 rounded bg-gray-100 dark:bg-gray-700 flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-gray-600"
+              className="px-4 py-2 rounded bg-gray-100 dark:bg-stone-700 flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-stone-600"
               title="Sort by date"
             >
               <ArrowUpDown className="w-4 h-4" />
@@ -262,13 +262,13 @@ export const LogFilters = ({
             </button>
             {showScopeToggle && (
               <>
-                <div className="flex rounded border bg-white dark:bg-gray-900">
+                <div className="flex rounded border bg-white dark:bg-stone-900">
                   <button
                     onClick={() => setSearchScope('all')}
                     className={`px-4 py-2 rounded-l flex items-center gap-2 ${
                       searchScope === 'all'
                         ? 'bg-postman-500 text-white dark:bg-postman-600'
-                        : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                        : 'bg-gray-100 dark:bg-stone-700 text-gray-700 dark:text-stone-300 hover:bg-gray-200 dark:hover:bg-stone-600'
                     }`}
                   >
                     <Files className="w-4 h-4" />
@@ -279,7 +279,7 @@ export const LogFilters = ({
                     className={`px-4 py-2 rounded-r flex items-center gap-2 ${
                       searchScope === 'current'
                         ? 'bg-postman-500 text-white dark:bg-postman-600'
-                        : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                        : 'bg-gray-100 dark:bg-stone-700 text-gray-700 dark:text-stone-300 hover:bg-gray-200 dark:hover:bg-stone-600'
                     }`}
                   >
                     <File className="w-4 h-4" />
@@ -296,43 +296,43 @@ export const LogFilters = ({
           <>
             <button
               onClick={() => handleFilterToggle('all')}
-              className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('all') ? 'bg-green-500 text-white dark:bg-green-700' : 'bg-gray-100 dark:bg-gray-700 text-green-700 dark:text-green-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
+              className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('all') ? 'bg-green-500 text-white dark:bg-green-700' : 'bg-gray-100 dark:bg-stone-700 text-green-700 dark:text-green-300 hover:bg-gray-200 dark:hover:bg-stone-600'}`}
             >
               <Globe className="w-4 h-4" /> All
             </button>
             <button
               onClick={() => handleFilterToggle('1xx')}
-              className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('1xx') ? 'bg-blue-500 text-white dark:bg-blue-600' : 'bg-gray-100 dark:bg-gray-700 text-blue-700 dark:text-blue-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
+              className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('1xx') ? 'bg-blue-500 text-white dark:bg-blue-600' : 'bg-gray-100 dark:bg-stone-700 text-blue-700 dark:text-blue-300 hover:bg-gray-200 dark:hover:bg-stone-600'}`}
             >
               1xx
             </button>
             <button
               onClick={() => handleFilterToggle('2xx')}
-              className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('2xx') ? 'bg-green-500 text-white dark:bg-green-600' : 'bg-gray-100 dark:bg-gray-700 text-green-700 dark:text-green-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
+              className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('2xx') ? 'bg-green-500 text-white dark:bg-green-600' : 'bg-gray-100 dark:bg-stone-700 text-green-700 dark:text-green-300 hover:bg-gray-200 dark:hover:bg-stone-600'}`}
             >
               2xx
             </button>
             <button
               onClick={() => handleFilterToggle('3xx')}
-              className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('3xx') ? 'bg-amber-500 text-white dark:bg-amber-600' : 'bg-gray-100 dark:bg-gray-700 text-amber-700 dark:text-amber-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
+              className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('3xx') ? 'bg-amber-500 text-white dark:bg-amber-600' : 'bg-gray-100 dark:bg-stone-700 text-amber-700 dark:text-amber-300 hover:bg-gray-200 dark:hover:bg-stone-600'}`}
             >
               3xx
             </button>
             <button
               onClick={() => handleFilterToggle('4xx')}
-              className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('4xx') ? 'bg-orange-500 text-white dark:bg-orange-600' : 'bg-gray-100 dark:bg-gray-700 text-orange-700 dark:text-orange-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
+              className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('4xx') ? 'bg-orange-500 text-white dark:bg-orange-600' : 'bg-gray-100 dark:bg-stone-700 text-orange-700 dark:text-orange-300 hover:bg-gray-200 dark:hover:bg-stone-600'}`}
             >
               4xx
             </button>
             <button
               onClick={() => handleFilterToggle('5xx')}
-              className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('5xx') ? 'bg-red-500 text-white dark:bg-red-600' : 'bg-gray-100 dark:bg-gray-700 text-red-700 dark:text-red-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
+              className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('5xx') ? 'bg-red-500 text-white dark:bg-red-600' : 'bg-gray-100 dark:bg-stone-700 text-red-700 dark:text-red-300 hover:bg-gray-200 dark:hover:bg-stone-600'}`}
             >
               5xx
             </button>
             <button
               onClick={() => handleFilterToggle('other')}
-              className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('other') ? 'bg-gray-500 text-white dark:bg-gray-600' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
+              className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('other') ? 'bg-gray-500 text-white dark:bg-stone-600' : 'bg-gray-100 dark:bg-stone-700 text-gray-700 dark:text-stone-300 hover:bg-gray-200 dark:hover:bg-stone-600'}`}
             >
               No response
             </button>
@@ -341,25 +341,25 @@ export const LogFilters = ({
           <>
             <button
               onClick={() => handleFilterToggle('all')}
-              className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('all') ? 'bg-green-500 text-white dark:bg-green-700' : 'bg-gray-100 dark:bg-gray-700 text-green-700 dark:text-green-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
+              className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('all') ? 'bg-green-500 text-white dark:bg-green-700' : 'bg-gray-100 dark:bg-stone-700 text-green-700 dark:text-green-300 hover:bg-gray-200 dark:hover:bg-stone-600'}`}
             >
               <Globe className="w-4 h-4" /> All
             </button>
             <button
               onClick={() => handleFilterToggle('error')}
-              className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('error') ? 'bg-red-500 text-white dark:bg-red-700' : 'bg-gray-100 dark:bg-gray-700 text-red-700 dark:text-red-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
+              className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('error') ? 'bg-red-500 text-white dark:bg-red-700' : 'bg-gray-100 dark:bg-stone-700 text-red-700 dark:text-red-300 hover:bg-gray-200 dark:hover:bg-stone-600'}`}
             >
               <AlertCircle className="w-4 h-4" /> Errors
             </button>
             <button
               onClick={() => handleFilterToggle('warn')}
-              className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('warn') ? 'bg-yellow-500 text-white dark:bg-yellow-700' : 'bg-gray-100 dark:bg-gray-700 text-yellow-700 dark:text-yellow-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
+              className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('warn') ? 'bg-yellow-500 text-white dark:bg-yellow-700' : 'bg-gray-100 dark:bg-stone-700 text-yellow-700 dark:text-yellow-300 hover:bg-gray-200 dark:hover:bg-stone-600'}`}
             >
               <AlertTriangle className="w-4 h-4" /> Warnings
             </button>
             <button
               onClick={() => handleFilterToggle('info')}
-              className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('info') ? 'bg-gray-500 text-white dark:bg-gray-600' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
+              className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('info') ? 'bg-gray-500 text-white dark:bg-stone-600' : 'bg-gray-100 dark:bg-stone-700 text-gray-700 dark:text-stone-300 hover:bg-gray-200 dark:hover:bg-stone-600'}`}
             >
               <Info className="w-4 h-4" /> Info
             </button>
@@ -374,7 +374,7 @@ export const LogFilters = ({
       <div className="flex gap-2 items-center flex-wrap">
         <button
           onClick={() => setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc')}
-          className="px-4 py-2 rounded bg-gray-100 dark:bg-gray-700 flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-gray-600"
+          className="px-4 py-2 rounded bg-gray-100 dark:bg-stone-700 flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-stone-600"
           title="Sort by date"
         >
           <ArrowUpDown className="w-4 h-4" />
@@ -382,13 +382,13 @@ export const LogFilters = ({
         </button>
         {showScopeToggle && (
           <>
-            <div className="flex rounded border bg-white dark:bg-gray-900">
+            <div className="flex rounded border bg-white dark:bg-stone-900">
               <button
                 onClick={() => setSearchScope('all')}
                 className={`px-4 py-2 rounded-l flex items-center gap-2 ${
                   searchScope === 'all'
                     ? 'bg-postman-500 text-white dark:bg-postman-600'
-                    : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                    : 'bg-gray-100 dark:bg-stone-700 text-gray-700 dark:text-stone-300 hover:bg-gray-200 dark:hover:bg-stone-600'
                 }`}
               >
                 <Files className="w-4 h-4" />
@@ -399,7 +399,7 @@ export const LogFilters = ({
                 className={`px-4 py-2 rounded-r flex items-center gap-2 ${
                   searchScope === 'current'
                     ? 'bg-postman-500 text-white dark:bg-postman-600'
-                    : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                    : 'bg-gray-100 dark:bg-stone-700 text-gray-700 dark:text-stone-300 hover:bg-gray-200 dark:hover:bg-stone-600'
                 }`}
               >
                 <File className="w-4 h-4" />
@@ -413,23 +413,23 @@ export const LogFilters = ({
           <>
             <button
               onClick={() => handleFilterToggle('all')}
-              className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('all') ? 'bg-green-500 text-white dark:bg-green-700' : 'bg-gray-100 dark:bg-gray-700 text-green-700 dark:text-green-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}
+              className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('all') ? 'bg-green-500 text-white dark:bg-green-700' : 'bg-gray-100 dark:bg-stone-700 text-green-700 dark:text-green-300 hover:bg-gray-200 dark:hover:bg-stone-600'}`}
             >
               <Globe className="w-4 h-4" /> All
             </button>
-            <button onClick={() => handleFilterToggle('1xx')} className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('1xx') ? 'bg-blue-500 text-white dark:bg-blue-600' : 'bg-gray-100 dark:bg-gray-700 text-blue-700 dark:text-blue-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}>1xx</button>
-            <button onClick={() => handleFilterToggle('2xx')} className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('2xx') ? 'bg-green-500 text-white dark:bg-green-600' : 'bg-gray-100 dark:bg-gray-700 text-green-700 dark:text-green-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}>2xx</button>
-            <button onClick={() => handleFilterToggle('3xx')} className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('3xx') ? 'bg-amber-500 text-white dark:bg-amber-600' : 'bg-gray-100 dark:bg-gray-700 text-amber-700 dark:text-amber-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}>3xx</button>
-            <button onClick={() => handleFilterToggle('4xx')} className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('4xx') ? 'bg-orange-500 text-white dark:bg-orange-600' : 'bg-gray-100 dark:bg-gray-700 text-orange-700 dark:text-orange-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}>4xx</button>
-            <button onClick={() => handleFilterToggle('5xx')} className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('5xx') ? 'bg-red-500 text-white dark:bg-red-600' : 'bg-gray-100 dark:bg-gray-700 text-red-700 dark:text-red-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}>5xx</button>
-            <button onClick={() => handleFilterToggle('other')} className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('other') ? 'bg-gray-500 text-white dark:bg-gray-600' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}>No response</button>
+            <button onClick={() => handleFilterToggle('1xx')} className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('1xx') ? 'bg-blue-500 text-white dark:bg-blue-600' : 'bg-gray-100 dark:bg-stone-700 text-blue-700 dark:text-blue-300 hover:bg-gray-200 dark:hover:bg-stone-600'}`}>1xx</button>
+            <button onClick={() => handleFilterToggle('2xx')} className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('2xx') ? 'bg-green-500 text-white dark:bg-green-600' : 'bg-gray-100 dark:bg-stone-700 text-green-700 dark:text-green-300 hover:bg-gray-200 dark:hover:bg-stone-600'}`}>2xx</button>
+            <button onClick={() => handleFilterToggle('3xx')} className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('3xx') ? 'bg-amber-500 text-white dark:bg-amber-600' : 'bg-gray-100 dark:bg-stone-700 text-amber-700 dark:text-amber-300 hover:bg-gray-200 dark:hover:bg-stone-600'}`}>3xx</button>
+            <button onClick={() => handleFilterToggle('4xx')} className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('4xx') ? 'bg-orange-500 text-white dark:bg-orange-600' : 'bg-gray-100 dark:bg-stone-700 text-orange-700 dark:text-orange-300 hover:bg-gray-200 dark:hover:bg-stone-600'}`}>4xx</button>
+            <button onClick={() => handleFilterToggle('5xx')} className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('5xx') ? 'bg-red-500 text-white dark:bg-red-600' : 'bg-gray-100 dark:bg-stone-700 text-red-700 dark:text-red-300 hover:bg-gray-200 dark:hover:bg-stone-600'}`}>5xx</button>
+            <button onClick={() => handleFilterToggle('other')} className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('other') ? 'bg-gray-500 text-white dark:bg-stone-600' : 'bg-gray-100 dark:bg-stone-700 text-gray-700 dark:text-stone-300 hover:bg-gray-200 dark:hover:bg-stone-600'}`}>No response</button>
           </>
         ) : (
           <>
-            <button onClick={() => handleFilterToggle('all')} className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('all') ? 'bg-green-500 text-white dark:bg-green-700' : 'bg-gray-100 dark:bg-gray-700 text-green-700 dark:text-green-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}><Globe className="w-4 h-4" /> All</button>
-            <button onClick={() => handleFilterToggle('error')} className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('error') ? 'bg-red-500 text-white dark:bg-red-700' : 'bg-gray-100 dark:bg-gray-700 text-red-700 dark:text-red-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}><AlertCircle className="w-4 h-4" /> Errors</button>
-            <button onClick={() => handleFilterToggle('warn')} className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('warn') ? 'bg-yellow-500 text-white dark:bg-yellow-700' : 'bg-gray-100 dark:bg-gray-700 text-yellow-700 dark:text-yellow-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}><AlertTriangle className="w-4 h-4" /> Warnings</button>
-            <button onClick={() => handleFilterToggle('info')} className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('info') ? 'bg-gray-500 text-white dark:bg-gray-600' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'}`}><Info className="w-4 h-4" /> Info</button>
+            <button onClick={() => handleFilterToggle('all')} className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('all') ? 'bg-green-500 text-white dark:bg-green-700' : 'bg-gray-100 dark:bg-stone-700 text-green-700 dark:text-green-300 hover:bg-gray-200 dark:hover:bg-stone-600'}`}><Globe className="w-4 h-4" /> All</button>
+            <button onClick={() => handleFilterToggle('error')} className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('error') ? 'bg-red-500 text-white dark:bg-red-700' : 'bg-gray-100 dark:bg-stone-700 text-red-700 dark:text-red-300 hover:bg-gray-200 dark:hover:bg-stone-600'}`}><AlertCircle className="w-4 h-4" /> Errors</button>
+            <button onClick={() => handleFilterToggle('warn')} className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('warn') ? 'bg-yellow-500 text-white dark:bg-yellow-700' : 'bg-gray-100 dark:bg-stone-700 text-yellow-700 dark:text-yellow-300 hover:bg-gray-200 dark:hover:bg-stone-600'}`}><AlertTriangle className="w-4 h-4" /> Warnings</button>
+            <button onClick={() => handleFilterToggle('info')} className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('info') ? 'bg-gray-500 text-white dark:bg-stone-600' : 'bg-gray-100 dark:bg-stone-700 text-gray-700 dark:text-stone-300 hover:bg-gray-200 dark:hover:bg-stone-600'}`}><Info className="w-4 h-4" /> Info</button>
           </>
         )}
       </div>

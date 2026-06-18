@@ -24,11 +24,11 @@ export const LogStats = ({ stats, harBuckets }: LogStatsProps) => {
           <span className="text-amber-600 dark:text-amber-400">3xx: {harBuckets['3xx']}</span>
           <span className="text-orange-600 dark:text-orange-400">4xx: {harBuckets['4xx']}</span>
           <span className="text-red-600 dark:text-red-400">5xx: {harBuckets['5xx']}</span>
-          <span className="text-gray-500 dark:text-gray-400">No response: {harBuckets.other}</span>
+          <span className="text-gray-500 dark:text-stone-400">No response: {harBuckets.other}</span>
         </>
       ) : (
         <>
-          <span className="text-gray-600 dark:text-gray-400">Info: {stats.info}</span>
+          <span className="text-gray-600 dark:text-stone-400">Info: {stats.info}</span>
           <span className="text-yellow-600 dark:text-yellow-400">Warn: {stats.warn}</span>
           <span className="text-red-600 dark:text-red-400">Error: {stats.error}</span>
         </>
