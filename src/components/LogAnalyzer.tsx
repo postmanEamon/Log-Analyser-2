@@ -762,7 +762,9 @@ const LogAnalyzer = () => {
                     }
                     onClearAllSearchTerms={handleClearAllSearchTerms}
                     onExtractWorkspaceIds={logSourceType === 'desktop' ? handleExtractWorkspaceIds : undefined}
-                    onExportTicketReply={filteredAndSortedLogs.length > 0 ? openExport : undefined}
+                    onExportTicketReply={openExport}
+                    extractDisabled={activeSourceFiles.length === 0}
+                    exportDisabled={filteredAndSortedLogs.length === 0}
                     showScopeToggle={logSourceType === 'desktop'}
                     showDateFilter={logSourceType === 'desktop'}
                     isHarView={logSourceType === 'har'}

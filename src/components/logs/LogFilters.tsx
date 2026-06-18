@@ -21,6 +21,8 @@ interface LogFiltersProps {
   onClearAllSearchTerms?: () => void; // Function to clear all search terms
   onExtractWorkspaceIds?: () => void; // Desktop only: open modal to show extracted workspace IDs
   onExportTicketReply?: () => void; // Open the markdown export modal; pass undefined to hide
+  extractDisabled?: boolean; // Render Get workspace IDs in a disabled state
+  exportDisabled?: boolean; // Render Export ticket reply in a disabled state
 }
 
 export const LogFilters = ({
@@ -39,6 +41,8 @@ export const LogFilters = ({
   onClearAllSearchTerms,
   onExtractWorkspaceIds,
   onExportTicketReply,
+  extractDisabled = false,
+  exportDisabled = false,
   showScopeToggle = true,
   showDateFilter = true,
   isHarView = false,
@@ -244,8 +248,9 @@ export const LogFilters = ({
                 <button
                   type="button"
                   onClick={onExtractWorkspaceIds}
-                  className="px-4 py-2 rounded bg-gray-100 dark:bg-stone-700 flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-stone-600 text-gray-700 dark:text-stone-300 whitespace-nowrap"
-                  title="Get workspace IDs from logs"
+                  disabled={extractDisabled}
+                  className="px-4 py-2 rounded bg-gray-100 dark:bg-stone-700 flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-stone-600 text-gray-700 dark:text-stone-300 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-gray-100 dark:disabled:hover:bg-stone-700"
+                  title={extractDisabled ? 'Upload logs first to extract workspace IDs' : 'Get workspace IDs from logs'}
                 >
                   <Layers className="w-4 h-4" />
                   Get workspace IDs
@@ -255,8 +260,9 @@ export const LogFilters = ({
                 <button
                   type="button"
                   onClick={onExportTicketReply}
-                  className="px-4 py-2 rounded bg-gray-100 dark:bg-stone-700 flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-stone-600 text-gray-700 dark:text-stone-300 whitespace-nowrap"
-                  title="Build a markdown summary you can paste into a ticket reply"
+                  disabled={exportDisabled}
+                  className="px-4 py-2 rounded bg-gray-100 dark:bg-stone-700 flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-stone-600 text-gray-700 dark:text-stone-300 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-gray-100 dark:disabled:hover:bg-stone-700"
+                  title={exportDisabled ? 'Upload logs first to export a summary' : 'Build a markdown summary you can paste into a ticket reply'}
                 >
                   <Copy className="w-4 h-4" />
                   Export ticket reply
@@ -451,8 +457,9 @@ export const LogFilters = ({
           <button
             type="button"
             onClick={onExportTicketReply}
-            className="ml-auto px-4 py-2 rounded bg-gray-100 dark:bg-stone-700 flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-stone-600 text-gray-700 dark:text-stone-300 whitespace-nowrap"
-            title="Build a markdown summary you can paste into a ticket reply"
+            disabled={exportDisabled}
+            className="ml-auto px-4 py-2 rounded bg-gray-100 dark:bg-stone-700 flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-stone-600 text-gray-700 dark:text-stone-300 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-gray-100 dark:disabled:hover:bg-stone-700"
+            title={exportDisabled ? 'Upload logs first to export a summary' : 'Build a markdown summary you can paste into a ticket reply'}
           >
             <Copy className="w-4 h-4" />
             Export ticket reply
