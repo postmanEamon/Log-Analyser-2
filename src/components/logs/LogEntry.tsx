@@ -71,7 +71,7 @@ export const LogEntry = ({ log, showFileName = false }: LogEntryProps) => {
       case 'warn':
         return 'bg-yellow-50 dark:bg-yellow-900';
       default:
-        return 'bg-gray-50 dark:bg-stone-800';
+        return 'bg-sky-50 dark:bg-sky-900/30';
     }
   };
 
