@@ -1,4 +1,4 @@
-import { Search, Globe, AlertTriangle, AlertCircle, ArrowUpDown, Info, X, File, Files, Calendar, Layers } from 'lucide-react';
+import { Search, Globe, AlertTriangle, AlertCircle, ArrowUpDown, Info, X, File, Files, Calendar, Layers, Copy } from 'lucide-react';
 import { LogEntry } from '@/utils/logParser';
 import { useState } from 'react';
 
@@ -20,6 +20,7 @@ interface LogFiltersProps {
   isHarView?: boolean;
   onClearAllSearchTerms?: () => void; // Function to clear all search terms
   onExtractWorkspaceIds?: () => void; // Desktop only: open modal to show extracted workspace IDs
+  onExportTicketReply?: () => void; // Open the markdown export modal; pass undefined to hide
 }
 
 export const LogFilters = ({
@@ -37,6 +38,7 @@ export const LogFilters = ({
   setDateRange,
   onClearAllSearchTerms,
   onExtractWorkspaceIds,
+  onExportTicketReply,
   showScopeToggle = true,
   showDateFilter = true,
   isHarView = false,
@@ -235,18 +237,31 @@ export const LogFilters = ({
               )}
             </div>
           </div>
-          {/* Row 1 col 2: Extract button (aligns with All filter below) */}
-          {onExtractWorkspaceIds && (
-            <div className="flex justify-start">
-              <button
-                type="button"
-                onClick={onExtractWorkspaceIds}
-                className="px-4 py-2 rounded bg-gray-100 dark:bg-stone-700 flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-stone-600 text-gray-700 dark:text-stone-300 whitespace-nowrap"
-                title="Get workspace IDs from logs"
-              >
-                <Layers className="w-4 h-4" />
-                Get workspace IDs
-              </button>
+          {/* Row 1 col 2: Workspace IDs + Export ticket reply (align with All filter below) */}
+          {(onExtractWorkspaceIds || onExportTicketReply) && (
+            <div className="flex justify-start gap-2 flex-wrap">
+              {onExtractWorkspaceIds && (
+                <button
+                  type="button"
+                  onClick={onExtractWorkspaceIds}
+                  className="px-4 py-2 rounded bg-gray-100 dark:bg-stone-700 flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-stone-600 text-gray-700 dark:text-stone-300 whitespace-nowrap"
+                  title="Get workspace IDs from logs"
+                >
+                  <Layers className="w-4 h-4" />
+                  Get workspace IDs
+                </button>
+              )}
+              {onExportTicketReply && (
+                <button
+                  type="button"
+                  onClick={onExportTicketReply}
+                  className="px-4 py-2 rounded bg-gray-100 dark:bg-stone-700 flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-stone-600 text-gray-700 dark:text-stone-300 whitespace-nowrap"
+                  title="Build a markdown summary you can paste into a ticket reply"
+                >
+                  <Copy className="w-4 h-4" />
+                  Export ticket reply
+                </button>
+              )}
             </div>
           )}
 
@@ -431,6 +446,17 @@ export const LogFilters = ({
             <button onClick={() => handleFilterToggle('warn')} className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('warn') ? 'bg-yellow-500 text-white dark:bg-yellow-700' : 'bg-gray-100 dark:bg-stone-700 text-yellow-700 dark:text-yellow-300 hover:bg-gray-200 dark:hover:bg-stone-600'}`}><AlertTriangle className="w-4 h-4" /> Warnings</button>
             <button onClick={() => handleFilterToggle('info')} className={`px-4 py-2 rounded flex items-center gap-2 ${isFilterActive('info') ? 'bg-sky-500 text-white dark:bg-sky-600' : 'bg-gray-100 dark:bg-stone-700 text-sky-700 dark:text-sky-300 hover:bg-gray-200 dark:hover:bg-stone-600'}`}><Info className="w-4 h-4" /> Info</button>
           </>
+        )}
+        {onExportTicketReply && (
+          <button
+            type="button"
+            onClick={onExportTicketReply}
+            className="ml-auto px-4 py-2 rounded bg-gray-100 dark:bg-stone-700 flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-stone-600 text-gray-700 dark:text-stone-300 whitespace-nowrap"
+            title="Build a markdown summary you can paste into a ticket reply"
+          >
+            <Copy className="w-4 h-4" />
+            Export ticket reply
+          </button>
         )}
       </div>
       )}

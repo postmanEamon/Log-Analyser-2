@@ -762,6 +762,7 @@ const LogAnalyzer = () => {
                     }
                     onClearAllSearchTerms={handleClearAllSearchTerms}
                     onExtractWorkspaceIds={logSourceType === 'desktop' ? handleExtractWorkspaceIds : undefined}
+                    onExportTicketReply={filteredAndSortedLogs.length > 0 ? openExport : undefined}
                     showScopeToggle={logSourceType === 'desktop'}
                     showDateFilter={logSourceType === 'desktop'}
                     isHarView={logSourceType === 'har'}
@@ -790,17 +791,6 @@ const LogAnalyzer = () => {
                             <Copy className="w-4 h-4" />
                           )}
                           Copy all filtered logs
-                        </button>
-                      )}
-                      {/* Export ticket reply: pre-formatted markdown summary suitable for pasting into a Jira/GitHub reply */}
-                      {filteredAndSortedLogs.length > 0 && (
-                        <button
-                          onClick={openExport}
-                          className="px-3 py-1 rounded bg-gray-100 dark:bg-stone-700 flex items-center gap-2 hover:bg-gray-200 dark:hover:bg-stone-600 text-sm"
-                          title="Build a markdown summary you can paste into a ticket reply"
-                        >
-                          <Copy className="w-4 h-4" />
-                          Export ticket reply
                         </button>
                       )}
                     </div>
